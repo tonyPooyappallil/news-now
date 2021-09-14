@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <title>News Now</title>
+  </head>
+  <body></body>
+</html>
+
+<script type="module">
+  import navbar from "./components/navbar.js";
+
+  document.body.innerHTML = navbar();
+
+  let obj = JSON.parse(localStorage.getItem("obj"));
+  let mainDiv = document.createElement("div");
+  mainDiv.classList.add("newsMain");
+  let div1 = document.createElement("div");
+  let div2 = document.createElement("div");
+  let div3 = document.createElement("div");
+
+  let tit = document.createElement("h1");
+  tit.innerHTML = obj.title;
+  let descrip = document.createElement("p");
+  if (obj.content == null) {
+    descrip.innerHTML =
+      "Description not available- Sorry for the inconvenience";
+  } else {
+    console.log(obj.content);
+    descrip.innerHTML = obj.content;
+  }
+
+  let image = document.createElement("img");
+  if (obj.urlToImage == null) {
+    image.src =
+      "http://mapandan.gov.ph/wp-content/uploads/2018/03/no_image.jpg";
+  } else {
+    image.src = obj.urlToImage;
+  }
+  div1.append(tit);
+  div2.append(image);
+  div3.append(descrip);
+  mainDiv.append(div1, div2, div3);
+  let div = document.getElementById("contentsMain");
+  div.append(mainDiv);
+</script>

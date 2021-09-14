@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <title>News Now</title>
+  </head>
+  <body>
+    <div id="searchDiv">
+      <input type="text" name="" placeholder="Search news" id="search" />
+    </div>
+  </body>
+</html>
+
+<script type="module">
+  import navbar from "./components/navbar.js";
+  import { append } from "./scripts/appender.js";
+  let nav = document.createElement("div");
+  nav.innerHTML = navbar();
+  console.log(nav);
+  document.body.append(nav);
+  let searcher = document.getElementById("search");
+  searcher.addEventListener("input", fetcher);
+  async function fetcher() {
+    let text = document.getElementById("search").value;
+    let data = await fetch(
+      `https://newsapi.org/v2/everything?q=${text}&language=en&apiKey=98423501be3442c1a01816f39f7e764f`
+    );
+    data = await data.json();
+    console.log(data);
+    // console.log(data.articles[0]);
+    let newsArr = data.articles;
+    let newsShowDiv = document.getElementById("contentsMain");
+
+    newsShowDiv.innerHTML = "";
+
+    append(newsArr, newsShowDiv);
+  }
+</script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <title>News Now</title>
+  </head>
+  <body>
+    <!-- <div id="main">
+      <div id="sidebar">
+        <div><a href="home.html">News Home</a></div>
+       
+        <div><a href="search.html">Search News</a></div>
+      </div>
+      <div id="contentsMain"></div>
+    </div> -->
+  </body>
+</html>
+<script type="module">
+  import navbar from "./components/navbar.js";
+  import { append } from "./scripts/appender.js";
+  document.body.innerHTML = navbar();
+
+  //  GET https://newsapi.org/v2/top-headlines&apiKey=98423501be3442c1a01816f39f7e764f
+
+  async function fetcher() {
+    let data = await fetch(
+      "https://newsapi.org/v2/top-headlines?country=in&apiKey=98423501be3442c1a01816f39f7e764f"
+    );
+    data = await data.json();
+    console.log(data);
+    // console.log(data.articles[0]);
+    let newsArr = data.articles;
+    let newsShowDiv = document.getElementById("contentsMain");
+    localStorage.setItem("array", JSON.stringify(newsArr));
+    append(newsArr, newsShowDiv);
+  }
+  fetcher();
+</script>
+<!-- <div><a href="news.html"></a></div> -->
